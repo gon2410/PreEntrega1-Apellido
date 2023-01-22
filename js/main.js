@@ -1,70 +1,87 @@
 // listas
-const listadeMarcas = ["Renault", "Volkswagen", "Chevrolet"]
+const listadeMarcas = ["Renault", "Volkswagen", "Chevrolet"];
 
-const listadeRenault = ["Duster", "Sandero", "Captur"]
-const listadeVolkswagen = ["Vento", "Gol", "Golf"]
-const listadeChevrolet = ["S10", "Onix", "Corsa"]
+const listadeRenault = ["Duster", "Sandero", "Captur"];
+const listadeVolkswagen = ["Vento", "Gol", "Golf"];
+const listadeChevrolet = ["S10", "Onix", "Corsa"];
 
-const listadeColores = ["Blanco Perla", "Negro", "Azul", "Rojo", "Gris", "Verde"]
+const listadeColores = ["Blanco Perla", "Negro", "Azul", "Rojo", "Gris", "Verde"];
 
-// array final
-let vehiculoFinal = [];
+const listadeColoresAsientos = ["Negro", "Gris", "Verde", "Rojo"];
+
+const listaLlantas = ["Aleacion", "Chapa(Tazas)"]
+
+class Auto{
+    constructor(marca, modelo, color, colorAsientos, llantas) {
+        this.marca = marca;
+        this.modelo = modelo;
+        this.color = color;
+        this.colorAsientos = colorAsientos;
+        this.llantas = llantas;
+    }
+
+    display() {
+        return "Marca: " + this.marca + " - Modelo: " + this.modelo + " - Color: " + this.color + " - Color de Asientos: " + this.colorAsientos + " - Llantas: " + this.llantas;
+    }
+}
+
+// objeto final
+let vehiculoFinal = new Auto();
 
 // toma una lista como parametro y el tipo (Marca, Modelo o Color) e imprime cada item
-function mostrarLista(lista, tipo) {
-    console.log("Lista de " + tipo + ":");
+function eleccionDeUsuario(lista, tipo) {
+    let tipoListaString = ("Lista de " + tipo + ":");
+
+    let listaString = ""
 
     for (let i = 0; i < lista.length; i++) {
-        console.log(lista[i])
-    }
-}
-
-// pide entrada a usuario y verifica si existe en la lista que toma como parametro
-function eleccionDeUsuario(lista, tipo) {
-    let entrada = "Elegir " + tipo + ":";
-
-    let eleccionUsuario = prompt(entrada)
-    while (lista.includes(eleccionUsuario) == false) {
-        console.log("Respuesta inválida. Recuerde las mayusculas.")
-        eleccionUsuario = prompt(entrada);
+        listaString += i + " - " + lista[i] + "\n";
     }
 
-    return eleccionUsuario;
+    let eleccionUsuario = prompt(tipoListaString + "\n\n" + listaString + "\nEliga una opcion: ")
+
+    // validando que el ingreso del usuario sea un numero y que no sea mayor que el largo de la lista.
+    while ((eleccionUsuario.length == 0) || (!isNaN(eleccionUsuario) == false) || (parseInt(eleccionUsuario) < 0) || (parseInt(eleccionUsuario) > lista.length-1)) {
+        eleccionUsuario = prompt(tipoListaString + "\n\n" + listaString + "\nRespuesta invalida. Intente de nuevo: ")
+    }
+
+    return lista[parseInt(eleccionUsuario)]
 }
 
-// mostrando lista de marcas
-mostrarLista(listadeMarcas, "Marcas")
+// eligiendo marca
+let marcaElegida = eleccionDeUsuario(listadeMarcas, "Marca");
+vehiculoFinal.marca = marcaElegida;
 
-let marcaElegida = eleccionDeUsuario(listadeMarcas, "Marca")
-console.log("Marca elegida: " + marcaElegida)
-vehiculoFinal.push(marcaElegida);
 
+// eligiendo modelo
 let modeloElegido;
 
 switch (marcaElegida) {
     case "Renault":
-        mostrarLista(listadeRenault, "Modelos")
-        modeloElegido = eleccionDeUsuario(listadeRenault, "Modelo")
+        modeloElegido = eleccionDeUsuario(listadeRenault, "Modelos")
         break;
     case "Volkswagen":
-        mostrarLista(listadeVolkswagen, "Modelos")
-        modeloElegido = eleccionDeUsuario(listadeVolkswagen, "Modelo")
+        modeloElegido = eleccionDeUsuario(listadeVolkswagen, "Modelos")
         break;
     case "Chevrolet":
-        mostrarLista(listadeChevrolet, "Modelos")
-        modeloElegido = eleccionDeUsuario(listadeChevrolet, "Modelo")
+        modeloElegido = eleccionDeUsuario(listadeChevrolet, "Modelos")
         break;
     default:
         break;
 }
 
-console.log("Modelo elegido: " + modeloElegido);
-vehiculoFinal.push(modeloElegido);
+vehiculoFinal.modelo = modeloElegido;
 
-mostrarLista(listadeColores, "Colores");
+// eligiendo color
+let colorElegido = eleccionDeUsuario(listadeColores, "Colores");
+vehiculoFinal.color = colorElegido;
 
-let colorElegido = eleccionDeUsuario(listadeColores, "Color");
-console.log("Color elegido: " + colorElegido);
-vehiculoFinal.push(colorElegido);
+// eligiendo color de asientos
+let colorAsientosElegido = eleccionDeUsuario(listadeColoresAsientos, "Colores de Asientos");
+vehiculoFinal.colorAsientos = colorAsientosElegido;
 
-alert("VEHICULO FINAL ELEGIDO: Marca: " + vehiculoFinal[0] + " - Modelo: " + vehiculoFinal[1] + " - Color: " + vehiculoFinal[2]);
+// eligiendo llantas
+let llantasElegidas = eleccionDeUsuario(listaLlantas, "Llantas");
+vehiculoFinal.llantas = llantasElegidas;
+
+alert("VEHICULO FINAL ELEGIDO: " + vehiculoFinal.display());
