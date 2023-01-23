@@ -44,8 +44,6 @@ let chevroletCorsa = new Auto(8, "Chevrolet", "Corsa", "Negro", "Negro", "Chapa"
 let arrayAutos = [renaultDuster, renaultSandero, renaultCaptur,
                 volkswagenVento, volkswagenGol, volkswagenGolf,
                 chevroletS10, chevroletOnix, chevroletCorsa];
-// objeto final
-let vehiculoFinal = new Auto();
 
 // eleccion inicial. Lista de autos.
 function elegirAuto(lista) {
