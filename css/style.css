@@ -1,0 +1,28 @@
+.card:hover {
+    cursor: pointer;
+}
+
+#main_section {
+    display: flex;
+    flex-direction: column;
+    align-items:  center;
+}
+
+
+li {
+    list-style-type: none;
+    display: inline;
+    margin-right: 0.5rem;
+}
+
+span {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    display: inline-flex;
+    border: solid 0.1rem black;
+}
+
+span:hover {
+    cursor: pointer;
+}
