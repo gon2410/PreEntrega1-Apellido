@@ -28,7 +28,7 @@ let negro = {color: "Negro", hex: "#000000"};
 let gris_oscuro = {color: "Gris_Oscuro", hex: "#333333"};
 let rojo = {color: "Rojo", hex: "#823839"};
 
-
+// creando autos
 let renaultDuster = new Auto(0, "Renault", "Duster", "Negro", 1_000_000, [azul, beige, blanco, gris], [{motor: "1.6", hp: 115, torque: 150}, {motor: "1.3T", hp: 155, torque: 250}]);
 let renaultSandero = new Auto(1, "Renault", "Sandero", "Negro", 950_000, [azul, blanco, gris, gris_oscuro, rojo], [{motor: "1.6", hp: 115, torque: 150}]);
 let renaultCaptur = new Auto(2, "Renault", "Captur", "Negro", 1_100_000, [blanco, gris, gris_oscuro, rojo], [{motor: "1.6", hp: 115, torque: 156},{motor: "2.0", hp: 143, torque: 193}]);
@@ -42,16 +42,19 @@ let chevroletOnix = new Auto(7, "Chevrolet", "Onix", "Negro", 850_000, [blanco, 
 let chevroletCruze = new Auto(8, "Chevrolet", "Cruze", "Negro", 700_000, [azul, blanco, gris, negro], [{motor: "1.4", hp: 153, torque: 245}]);
 
 
+// agrego los autos creados a la lista
 let arrayAutos = [renaultDuster, renaultSandero, renaultCaptur,
                 volkswagenVirtus, volkswagenPolo, volkswagenAmarok,
                 chevroletS10, chevroletOnix, chevroletCruze];
 
+// guardo autos en sessionStorage
 for (let i = 0; i < arrayAutos.length; i++) {
     let item = JSON.stringify(arrayAutos[i]);
 
     sessionStorage.setItem(arrayAutos[i].modelo, item);
 }
 
+// creo el objeto Auto final (el que elige el usuario)
 let autoFinal = new Auto();
 
 
@@ -65,17 +68,18 @@ let divAutos = document.querySelector("#div_autos")
 let select = document.createElement("select");
 select.className = "form-select";
 
-
+// creo el select de opciones obteniendo los datos del sessionStorage
 for (let i = 0; i < arrayAutos.length; i++) {
     let option = document.createElement("option");
     let autoJson = sessionStorage.getItem(arrayAutos[i].modelo);
     let auto = JSON.parse(autoJson);
-    
+
     option.innerHTML = auto.marca + " " + auto.modelo;
     option.value = auto.modelo;
     select.append(option);
 }
 
+// llamo al sessionStorage y le pido el objeto con la key elegida en el select y llamo a la funcion autoElegido()
 select.addEventListener("change", () => {
     let autoJson = sessionStorage.getItem(select.value);   
     let auto = JSON.parse(autoJson);
@@ -84,6 +88,7 @@ select.addEventListener("change", () => {
 
 divAutos.append(select);
 
+// renderizo imagen inicial e informacion del auto
 function autoElegido(auto) {
 
     autoFinal.marca = auto.marca;
@@ -109,7 +114,7 @@ function autoElegido(auto) {
 }
 
 
-
+// renderizo los motores disponibles y la eleccion de uno
 function eleccionDeMotor(auto) {
     let motoresDiv = document.createElement("div")
     motoresDiv.className = "row";
@@ -154,6 +159,7 @@ function eleccionDeMotor(auto) {
     return motoresDiv
 }
 
+// renderizo los colores disponibles y eleccion
 function eleccionDeColor(auto, imagen) {
     let coloresDiv = document.createElement("div")
     let titulo = document.createElement("h6");
@@ -185,7 +191,7 @@ function eleccionDeColor(auto, imagen) {
     return coloresDiv
 }
 
-
+// boton comprar
 btnComprar.addEventListener("click", () => {
         swal({
         title: "Felicitaciones!",
@@ -195,6 +201,7 @@ btnComprar.addEventListener("click", () => {
     });
 })
 
+// funcion deshacer inicial para que no quede en blanco la pagina
 function deshacer() {
     imagenDiv.innerHTML = ""
     infoDiv.innerHTML = "";
