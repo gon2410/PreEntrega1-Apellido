@@ -49,7 +49,7 @@ let arrayAutos = [renaultDuster, renaultSandero, renaultCaptur,
 for (let i = 0; i < arrayAutos.length; i++) {
     let item = JSON.stringify(arrayAutos[i]);
 
-    localStorage.setItem(arrayAutos[i].modelo, item);
+    sessionStorage.setItem(arrayAutos[i].modelo, item);
 }
 
 let autoFinal = new Auto();
@@ -67,7 +67,7 @@ select.className = "form-select";
 
 for (let i = 0; i < arrayAutos.length; i++) {
     let option = document.createElement("option");
-    let autoJson = localStorage.getItem(arrayAutos[i].modelo);
+    let autoJson = sessionStorage.getItem(arrayAutos[i].modelo);
     let auto = JSON.parse(autoJson);
     option.innerHTML = auto.marca + " " + auto.modelo;
 
