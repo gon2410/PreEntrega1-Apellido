@@ -57,6 +57,7 @@ let autoFinal = new Auto();
 
 let imagenDiv = document.querySelector("#imagen");
 let infoDiv = document.querySelector("#texto");
+let btnComprar = document.querySelector("#botonComprar");
 
 deshacer();
 
@@ -83,9 +84,13 @@ function autoElegido(auto) {
 
     autoFinal.marca = auto.marca;
     autoFinal.modelo = auto.modelo;
+    autoFinal.precio = auto.precio;
 
     imagenDiv.innerHTML = ""
     infoDiv.innerHTML = "";
+    btnComprar.style.display = "block";
+
+    btnComprar.setAttribute("disabled", "");
 
     let imagen = document.createElement("img");
 
@@ -134,6 +139,7 @@ function eleccionDeMotor(auto) {
 
         motorInput.addEventListener("click", () => {
             autoFinal.motor = motorInput.value;
+            btnComprar.removeAttribute("disabled", "");
 
         })
 
@@ -149,6 +155,8 @@ function eleccionDeColor(auto, imagen) {
     let titulo = document.createElement("h6");
     titulo.className = "text-muted";
     titulo.innerHTML = "Colores (seleccionar)"
+
+    autoFinal.color = "Blanco";
 
     coloresDiv.append(titulo);
     let listaDeColores = document.createElement("ul");
@@ -173,9 +181,21 @@ function eleccionDeColor(auto, imagen) {
     return coloresDiv
 }
 
+
+btnComprar.addEventListener("click", () => {
+        swal({
+        title: "Felicitaciones!",
+        text: "Has adquirido el suiguiente vehiculo!" + autoFinal.display(),
+        icon: "success",
+        button: "OK",
+    });
+})
+
 function deshacer() {
     imagenDiv.innerHTML = ""
     infoDiv.innerHTML = "";
+
+    btnComprar.style.display = "none";
 
     let imagen = document.createElement("img");
 
@@ -189,14 +209,3 @@ function deshacer() {
     imagenDiv.append(imagen);
     infoDiv.append(imagenInfoCargando);
 }
-
-let btnComprar = document.querySelector("#botonComprar");
-btnComprar.addEventListener("click", () => {
-        swal({
-        title: "Felicitaciones!",
-        text: "Has adquirido el suiguiente vehiculo!" + autoFinal.display(),
-        icon: "success",
-        button: "OK",
-    });
-})
-

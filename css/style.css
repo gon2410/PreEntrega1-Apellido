@@ -26,3 +26,7 @@ span {
 span:hover {
     cursor: pointer;
 }
+
+.btn {
+    float: right;
+}
