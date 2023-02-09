@@ -65,18 +65,22 @@ let divAutos = document.querySelector("#div_autos")
 let select = document.createElement("select");
 select.className = "form-select";
 
+
 for (let i = 0; i < arrayAutos.length; i++) {
     let option = document.createElement("option");
     let autoJson = sessionStorage.getItem(arrayAutos[i].modelo);
     let auto = JSON.parse(autoJson);
+    
     option.innerHTML = auto.marca + " " + auto.modelo;
-
-    option.addEventListener("click", () => {
-        autoElegido(auto);
-    })
-
+    option.value = auto.modelo;
     select.append(option);
 }
+
+select.addEventListener("change", () => {
+    let autoJson = sessionStorage.getItem(select.value);   
+    let auto = JSON.parse(autoJson);
+    autoElegido(auto); 
+})
 
 divAutos.append(select);
 
