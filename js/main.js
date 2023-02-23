@@ -21,39 +21,39 @@ class Auto{
 }
 
 // colores
-let azul = {color: "Azul", hex: "#021742"};
-let beige = {color: "Beige", hex: "#b7b3a7"};
-let blanco = {color: "Blanco", hex: "#ffffff"};
-let gris = {color: "Gris", hex: "#cdc9c8"};
-let negro = {color: "Negro", hex: "#000000"};
-let gris_oscuro = {color: "Gris_Oscuro", hex: "#333333"};
-let rojo = {color: "Rojo", hex: "#823839"};
+const azul = {color: "Azul", hex: "#021742"};
+const beige = {color: "Beige", hex: "#b7b3a7"};
+const blanco = {color: "Blanco", hex: "#ffffff"};
+const gris = {color: "Gris", hex: "#cdc9c8"};
+const negro = {color: "Negro", hex: "#000000"};
+const gris_oscuro = {color: "Gris_Oscuro", hex: "#333333"};
+const rojo = {color: "Rojo", hex: "#823839"};
 
 // creando autos
-let renaultDuster = new Auto(null, "Renault", "Duster", "Negro", 1_500_000, [azul, beige, blanco, gris], [{motor: "1.6", hp: 115, torque: 150}, {motor: "1.3T", hp: 155, torque: 250}]);
-let renaultSandero = new Auto(null, "Renault", "Sandero", "Negro", 1_150_000, [azul, blanco, gris, gris_oscuro, rojo], [{motor: "1.6", hp: 115, torque: 150}]);
-let renaultCaptur = new Auto(null, "Renault", "Captur", "Negro", 1_250_000, [blanco, gris, gris_oscuro, rojo], [{motor: "1.6", hp: 115, torque: 156},{motor: "2.0", hp: 143, torque: 193}]);
+const renaultDuster = new Auto(null, "Renault", "Duster", "Negro", 1_500_000, [azul, beige, blanco, gris], [{motor: "1.6", hp: 115, torque: 150}, {motor: "1.3T", hp: 155, torque: 250}]);
+const renaultSandero = new Auto(null, "Renault", "Sandero", "Negro", 1_150_000, [azul, blanco, gris, gris_oscuro, rojo], [{motor: "1.6", hp: 115, torque: 150}]);
+const renaultCaptur = new Auto(null, "Renault", "Captur", "Negro", 1_250_000, [blanco, gris, gris_oscuro, rojo], [{motor: "1.6", hp: 115, torque: 156},{motor: "2.0", hp: 143, torque: 193}]);
 
-let volkswagenVirtus = new Auto(null,"Volkswagen", "Virtus", "Negro", 2_000_000, [azul, blanco, gris, gris_oscuro, negro], [{motor: "1.6", hp: 110, torque: 155}, {motor: "1.4T", hp: 150, torque: 250}]);
-let volkswagenPolo = new Auto(null,"Volkswagen", "Polo", "Negro", 1_500_000, [azul, blanco, gris, gris_oscuro, negro, rojo], [{motor: "1.6", hp: 110, torque: 155}, {motor: "1.4T", hp: 150, torque: 250}]);
-let volkswagenAmarok = new Auto(null,"Volkswagen", "Amarok", "Negro", 3_250_000, [azul, beige, blanco, gris, gris_oscuro, negro], [{motor: "2.0", hp: 140, torque: 340}, {motor: "2.0", hp: 180, torque: 420}, {motor: "3.0 V6", hp: 260, torque: 580}]);
+const volkswagenVirtus = new Auto(null,"Volkswagen", "Virtus", "Negro", 2_000_000, [azul, blanco, gris, gris_oscuro, negro], [{motor: "1.6", hp: 110, torque: 155}, {motor: "1.4T", hp: 150, torque: 250}]);
+const volkswagenPolo = new Auto(null,"Volkswagen", "Polo", "Negro", 1_500_000, [azul, blanco, gris, gris_oscuro, negro, rojo], [{motor: "1.6", hp: 110, torque: 155}, {motor: "1.4T", hp: 150, torque: 250}]);
+const volkswagenAmarok = new Auto(null,"Volkswagen", "Amarok", "Negro", 3_250_000, [azul, beige, blanco, gris, gris_oscuro, negro], [{motor: "2.0", hp: 140, torque: 340}, {motor: "2.0", hp: 180, torque: 420}, {motor: "3.0 V6", hp: 260, torque: 580}]);
 
-let chevroletS10 = new Auto(null,"Chevrolet", "S10", "Negro", 2_500_000, [azul, blanco, gris, negro,], [{motor: "2.8", hp: 200, torque: 500}]);
-let chevroletOnix = new Auto(null,"Chevrolet", "Onix", "Negro", 1_050_000, [blanco, negro, rojo], [{motor: "1.0", hp: 116, torque: 160}]);
-let chevroletCruze = new Auto(null,"Chevrolet", "Cruze", "Negro", 1_700_000, [azul, blanco, gris, negro], [{motor: "1.4", hp: 153, torque: 245}]);
+const chevroletS10 = new Auto(null,"Chevrolet", "S10", "Negro", 2_500_000, [azul, blanco, gris, negro,], [{motor: "2.8", hp: 200, torque: 500}]);
+const chevroletOnix = new Auto(null,"Chevrolet", "Onix", "Negro", 1_050_000, [blanco, negro, rojo], [{motor: "1.0", hp: 116, torque: 160}]);
+const chevroletCruze = new Auto(null,"Chevrolet", "Cruze", "Negro", 1_700_000, [azul, blanco, gris, negro], [{motor: "1.4", hp: 153, torque: 245}]);
 
 
 // agrego los autos creados a la lista
-let arrayAutos = [renaultDuster, renaultSandero, renaultCaptur,
+const arrayAutos = [renaultDuster, renaultSandero, renaultCaptur,
                 volkswagenVirtus, volkswagenPolo, volkswagenAmarok,
                 chevroletS10, chevroletOnix, chevroletCruze];
 let carrito = [];
 
-// guardo autos en sessionStorage
+// guardo autos en localStorage
 for (let i = 0; i < arrayAutos.length; i++) {
     let item = JSON.stringify(arrayAutos[i]);
 
-    sessionStorage.setItem(arrayAutos[i].modelo, item);
+    localStorage.setItem(arrayAutos[i].modelo, item);
 }
 
 // creo el objeto Auto final (el que elige el usuario)
@@ -61,7 +61,7 @@ let autoFinal = new Auto();
 let imagenDiv = document.querySelector("#imagen");
 let infoDiv = document.querySelector("#texto");
 let btnComprar = document.querySelector("#botonComprar");
-const dropdownCarrito = document.querySelector("#dropdownCarrito");
+let dropdownCarrito = document.querySelector("#dropdownCarrito");
 
 let divAutos = document.querySelector("#div_autos")
 let select = document.createElement("select");
@@ -69,40 +69,40 @@ select.className = "form-select";
 
 
 // creo el select de opciones obteniendo los datos del sessionStorage
-function crearOpciones() {
-    deshacer();
-    for (let i = 0; i < arrayAutos.length; i++) {
-        let option = document.createElement("option");
-        let autoJson = sessionStorage.getItem(arrayAutos[i].modelo);
-        let auto = JSON.parse(autoJson);
-    
-        option.innerHTML = auto.marca + " " + auto.modelo;
-        option.value = auto.modelo;
-        select.append(option);
-    }
-    
-    // llamo al sessionStorage y le pido el objeto con la key elegida en el select y llamo a la funcion autoElegido()
-    select.addEventListener("change", () => {
-        let autoJson = sessionStorage.getItem(select.value);   
-        let auto = JSON.parse(autoJson);
-        autoElegido(auto); 
-    })
-    
-    divAutos.append(select);
+
+deshacer();
+for (let i = 0; i < arrayAutos.length; i++) {
+    let option = document.createElement("option");
+    let autoJson = localStorage.getItem(arrayAutos[i].modelo);
+    let auto = JSON.parse(autoJson);
+
+    option.innerHTML = auto.marca + " " + auto.modelo;
+    option.value = auto.modelo;
+    select.append(option);
 }
+
+// llamo al sessionStorage y le pido el objeto con la key elegida en el select y llamo a la funcion autoElegido()
+select.addEventListener("change", () => {
+    let autoJson = localStorage.getItem(select.value);   
+    let auto = JSON.parse(autoJson);
+    autoElegido(auto); 
+})
+
+divAutos.append(select);
+
 
 
 
 // renderizo imagen inicial e informacion del auto
 function autoElegido(auto) {
 
-    autoFinal.id = id
+    autoFinal.id = id;
     id += 1;
     autoFinal.marca = auto.marca;
     autoFinal.modelo = auto.modelo;
     autoFinal.precio = auto.precio;
 
-    imagenDiv.innerHTML = ""
+    imagenDiv.innerHTML = "";
     infoDiv.innerHTML = "";
     btnComprar.style.display = "block";
 
@@ -239,7 +239,6 @@ function actualizarCarrito() {
         
         // console.log(carrito[i].id);
         itemButton.addEventListener("click", () => {
-
             for (let j = 0; j < carrito.length; j++) {
                 if (carrito[i].id == carrito[j].id) {
                     carrito.splice(i, 1);
@@ -291,6 +290,3 @@ function deshacer() {
     imagenDiv.append(imagen);
     infoDiv.append(imagenInfoCargando);
 }
-
-
-crearOpciones();
