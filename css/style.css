@@ -15,7 +15,7 @@ span {
     height: 1.5rem;
     border-radius: 50%;
     display: inline-flex;
-    border: solid 0.1rem black;
+    /*border: solid 0.1rem black;*/
 }
 
 span:hover {
