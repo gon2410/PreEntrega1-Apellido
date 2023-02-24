@@ -259,12 +259,28 @@ function actualizarCarrito() {
     buttonComprar.innerHTML = "Finalizar Compra";
 
     buttonComprar.addEventListener("click", () => {
-        swal({
-            title: "Felicitaciones!",
-            text: "Monto total: $" + count,
-            icon: "success",
-            button: "Pagar",
-        });
+        const options = {
+            method: 'GET',
+            headers: {
+                'X-RapidAPI-Key': '2dd76d74b7msh04af7126e4df225p178eabjsna49132436769',
+                'X-RapidAPI-Host': 'currency-converter-by-api-ninjas.p.rapidapi.com'
+            }
+        };
+        
+        fetch('https://currency-converter-by-api-ninjas.p.rapidapi.com/v1/convertcurrency?have=ARS&want=USD&amount=' + count.toString(), options)
+            .then(response => response.json())
+            .then((data) => {
+                //console.log('Success:', data);
+                swal({
+                    title: "Felicitaciones!",
+                    text: "Monto total ARS: $" + count + " - USD: $" + data.new_amount,
+                    icon: "success",
+                    button: "Pagar",
+                });
+            })
+            .catch(err => console.error(err));
+
+
         // carrito = []
         // actualizarCarrito();
     })
