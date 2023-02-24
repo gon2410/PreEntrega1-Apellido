@@ -58,64 +58,67 @@ for (let i = 0; i < arrayAutos.length; i++) {
 
 // creo el objeto Auto final (el que elige el usuario)
 let autoFinal = new Auto();
-let imagenDiv = document.querySelector("#imagen");
-let infoDiv = document.querySelector("#texto");
-let btnComprar = document.querySelector("#botonComprar");
-let dropdownCarrito = document.querySelector("#dropdownCarrito");
 
-let divAutos = document.querySelector("#div_autos")
-let select = document.createElement("select");
-select.className = "form-select";
+const selectDiv = document.querySelector("#selectDiv")
+const imagenDiv = document.querySelector("#imagenDiv");
+const infoDiv = document.querySelector("#infoDiv");
+
+const btnAgregarCarrito = document.querySelector("#btnAgregarCarrito");
+const dropdownDeCarrito = document.querySelector("#dropdownDeCarrito");
+
+
 
 
 // creo el select de opciones obteniendo los datos del sessionStorage
+function creoSelect() {
+    deshacer();
+    const select = document.createElement("select");
+    select.className = "form-select";
+    for (let i = 0; i < arrayAutos.length; i++) {
+        let option = document.createElement("option");
+        let autoJson = localStorage.getItem(arrayAutos[i].modelo);
+        let auto = JSON.parse(autoJson);
 
-deshacer();
-for (let i = 0; i < arrayAutos.length; i++) {
-    let option = document.createElement("option");
-    let autoJson = localStorage.getItem(arrayAutos[i].modelo);
-    let auto = JSON.parse(autoJson);
+        option.innerHTML = auto.marca + " " + auto.modelo;
+        option.value = auto.modelo;
+        select.append(option);
+    }
 
-    option.innerHTML = auto.marca + " " + auto.modelo;
-    option.value = auto.modelo;
-    select.append(option);
+    // llamo al localStorage y le pido el objeto con la key elegida en el select y llamo a la funcion autoElegido()
+    select.addEventListener("change", () => {
+        let autoJson = localStorage.getItem(select.value);   
+        let auto = JSON.parse(autoJson);
+
+        autoElegido(auto); 
+    })
+
+    selectDiv.append(select);
 }
-
-// llamo al sessionStorage y le pido el objeto con la key elegida en el select y llamo a la funcion autoElegido()
-select.addEventListener("change", () => {
-    let autoJson = localStorage.getItem(select.value);   
-    let auto = JSON.parse(autoJson);
-    autoElegido(auto); 
-})
-
-divAutos.append(select);
-
-
 
 
 // renderizo imagen inicial e informacion del auto
 function autoElegido(auto) {
-
     autoFinal.id = id;
     id += 1;
+
     autoFinal.marca = auto.marca;
     autoFinal.modelo = auto.modelo;
     autoFinal.precio = auto.precio;
 
     imagenDiv.innerHTML = "";
     infoDiv.innerHTML = "";
-    btnComprar.style.display = "block";
 
-    btnComprar.setAttribute("disabled", "");
+    btnAgregarCarrito.style.display = "block";
+    btnAgregarCarrito.setAttribute("disabled", "");
 
-    let imagen = document.createElement("img");
-
-    let modeloAutoElegido = document.createElement("h5");
-    modeloAutoElegido.innerHTML = auto.marca + " " + auto.modelo;
-
+    const imagen = document.createElement("img");
     imagen.src = "./media/" + auto.marca + "_" + auto.modelo + "_Blanco.png";
     imagen.className = "img-fluid";
     imagen.width = 500;
+
+    const modeloAutoElegido = document.createElement("h5");
+    modeloAutoElegido.innerHTML = auto.marca + " " + auto.modelo;
+
 
     imagenDiv.append(imagen);
     infoDiv.append(modeloAutoElegido, eleccionDeMotor(auto), eleccionDeColor(auto, imagen));
@@ -124,18 +127,19 @@ function autoElegido(auto) {
 
 // renderizo los motores disponibles y la eleccion de uno
 function eleccionDeMotor(auto) {
-    let motoresDiv = document.createElement("div")
+    const motoresDiv = document.createElement("div")
     motoresDiv.className = "row";
-    let titulo = document.createElement("h6");
+
+    const titulo = document.createElement("h6");
     titulo.className = "text-muted";
     titulo.innerHTML = "Motores (seleccionar)"
 
     motoresDiv.append(titulo);
 
     for (let i = 0; i < auto.motores.length; i++) {
-        let motorForm = document.createElement("div");
-        let motorInput = document.createElement("input");
-        let motorLabel = document.createElement("label");
+        const motorForm = document.createElement("div");
+        const motorInput = document.createElement("input");
+        const motorLabel = document.createElement("label");
 
         motorForm.className = "form-check";
 
@@ -147,7 +151,6 @@ function eleccionDeMotor(auto) {
 
         motorLabel.className = "form-check-label";
         motorLabel.htmlFor = "motorElegido" + i;
-
         motorLabel.innerHTML = `<ul>
                                     <li>${auto.motores[i].motor}</li>
                                     <li>${auto.motores[i].hp}HP</li>
@@ -156,7 +159,7 @@ function eleccionDeMotor(auto) {
 
         motorInput.addEventListener("click", () => {
             autoFinal.motor = motorInput.value;
-            btnComprar.removeAttribute("disabled", "");
+            btnAgregarCarrito.removeAttribute("disabled", "");
 
         })
 
@@ -169,8 +172,8 @@ function eleccionDeMotor(auto) {
 
 // renderizo los colores disponibles y eleccion
 function eleccionDeColor(auto, imagen) {
-    let coloresDiv = document.createElement("div")
-    let titulo = document.createElement("h6");
+    const coloresDiv = document.createElement("div")
+    const titulo = document.createElement("h6");
     titulo.className = "text-muted";
     titulo.innerHTML = "Colores (seleccionar)"
 
@@ -180,8 +183,8 @@ function eleccionDeColor(auto, imagen) {
     let listaDeColores = document.createElement("ul");
     
     for (let i = 0; i < auto.coloresDisponibles.length; i++) {
-        let item = document.createElement("li");
-        let span = document.createElement("span");
+        const item = document.createElement("li");
+        const span = document.createElement("span");
         span.style.background = auto.coloresDisponibles[i].hex;
 
         item.append(span);
@@ -200,11 +203,11 @@ function eleccionDeColor(auto, imagen) {
 }
 
 // boton comprar
-btnComprar.addEventListener("click", () => {
+btnAgregarCarrito.addEventListener("click", () => {
     carrito.push(autoFinal)
     deshacer();
     autoFinal = new Auto()
-    btnComprar.setAttribute("disabled", "");
+    btnAgregarCarrito.setAttribute("disabled", "");
     actualizarCarrito()
     Toastify({
         text: "Agregado al carrito",
@@ -218,7 +221,7 @@ btnComprar.addEventListener("click", () => {
 })
 
 function actualizarCarrito() {
-    dropdownCarrito.innerHTML = "";
+    dropdownDeCarrito.innerHTML = "";
     let count = 0;
     for (let i = 0; i < carrito.length; i++) {
         count += carrito[i].precio;
@@ -251,13 +254,17 @@ function actualizarCarrito() {
         })
 
         dropdownItem.append(itemButton);
-        dropdownCarrito.append(dropdownItem);
+        dropdownDeCarrito.append(dropdownItem);
         
     }
     const buttonComprar = document.createElement("button");
     buttonComprar.className = "btn btn-sm btn-light m-1";
     buttonComprar.innerHTML = "Finalizar Compra";
 
+    if (carrito.length == 0) {
+        buttonComprar.style.display = "none";
+    }
+    
     buttonComprar.addEventListener("click", () => {
         const options = {
             method: 'GET',
@@ -284,7 +291,7 @@ function actualizarCarrito() {
         // carrito = []
         // actualizarCarrito();
     })
-    dropdownCarrito.append(buttonComprar);
+    dropdownDeCarrito.append(buttonComprar);
 }
 
 // funcion deshacer inicial para que no quede en blanco la pagina
@@ -292,17 +299,19 @@ function deshacer() {
     imagenDiv.innerHTML = ""
     infoDiv.innerHTML = "";
 
-    btnComprar.style.display = "none";
+    btnAgregarCarrito.style.display = "none";
 
-    let imagen = document.createElement("img");
-
+    const imagen = document.createElement("img");
     imagen.src = "./media/loading_car.png";
     imagen.width = 500;
 
-    let imagenInfoCargando = document.createElement("img");
+    const imagenInfoCargando = document.createElement("img");
     imagenInfoCargando.src = "./media/loading_info.png";
     imagenInfoCargando.width = 500;
 
     imagenDiv.append(imagen);
     infoDiv.append(imagenInfoCargando);
 }
+
+
+creoSelect();
