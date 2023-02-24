@@ -257,15 +257,15 @@ function actualizarCarrito() {
         dropdownDeCarrito.append(dropdownItem);
         
     }
-    const buttonComprar = document.createElement("button");
-    buttonComprar.className = "btn btn-sm btn-light m-1";
-    buttonComprar.innerHTML = "Finalizar Compra";
+    const btnFinalizarCompra = document.createElement("button");
+    btnFinalizarCompra.className = "btn btn-sm btn-light m-1";
+    btnFinalizarCompra.innerHTML = "Finalizar Compra";
 
     if (carrito.length == 0) {
-        buttonComprar.style.display = "none";
+        btnFinalizarCompra.style.display = "none";
     }
-    
-    buttonComprar.addEventListener("click", () => {
+
+    btnFinalizarCompra.addEventListener("click", () => {
         const options = {
             method: 'GET',
             headers: {
@@ -291,7 +291,7 @@ function actualizarCarrito() {
         // carrito = []
         // actualizarCarrito();
     })
-    dropdownDeCarrito.append(buttonComprar);
+    dropdownDeCarrito.append(btnFinalizarCompra);
 }
 
 // funcion deshacer inicial para que no quede en blanco la pagina
